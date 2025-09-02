@@ -40,16 +40,25 @@ class LionTest {
     }
 
     @Test
-    void testGetKittens() throws Exception {
+    void testGetKittensReturnsCorrectValue() throws Exception {
         Lion lion = new Lion("Самец", feline);
         when(feline.getKittens()).thenReturn(3);
 
         assertEquals(3, lion.getKittens());
+    }
+
+    @Test
+    void testGetKittensCallsFelineMethod() throws Exception {
+        Lion lion = new Lion("Самец", feline);
+        when(feline.getKittens()).thenReturn(3);
+
+        lion.getKittens();
+
         verify(feline, times(1)).getKittens();
     }
 
     @Test
-    void testGetFood() throws Exception {
+    void testGetFoodReturnsCorrectFood() throws Exception {
         Lion lion = new Lion("Самец", feline);
         List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
 
@@ -58,11 +67,31 @@ class LionTest {
         List<String> actualFood = lion.getFood();
 
         assertEquals(expectedFood, actualFood);
+    }
+
+    @Test
+    void testGetFoodCallsEatMeatOnce() throws Exception {
+        Lion lion = new Lion("Самец", feline);
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
+
+        when(feline.eatMeat()).thenReturn(expectedFood);
+
+        lion.getFood();
+
         verify(feline, times(1)).eatMeat();
     }
 
     @Test
     void testGetFoodException() throws Exception {
+        Lion lion = new Lion("Самец", feline);
+
+        when(feline.eatMeat()).thenThrow(new Exception("Test exception"));
+
+        assertThrows(Exception.class, lion::getFood);
+    }
+
+    @Test
+    void testGetFoodExceptionVerifyCall() throws Exception {
         Lion lion = new Lion("Самец", feline);
 
         when(feline.eatMeat()).thenThrow(new Exception("Test exception"));

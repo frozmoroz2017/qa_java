@@ -1,9 +1,9 @@
-package com.example;
+ package com.example;
 
-import java.util.List;
+ import java.util.List;
 
-public interface Predator {
+ public interface Predator {
 
-    List<String> eatMeat() throws Exception;
+     List<String> eatMeat() throws Exception;
 
-}
+ }
