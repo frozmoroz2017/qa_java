@@ -1,21 +1,21 @@
-package com.example;
+ package com.example;
 
-import java.util.List;
+ import java.util.List;
 
-public class Cat {
+ public class Cat {
 
-    Predator predator;
+     Predator predator;
 
-    public Cat(Feline feline) {
-        this.predator = feline;
-    }
+     public Cat(Feline feline) {
+         this.predator = feline;
+     }
 
-    public String getSound() {
-        return "Мяу";
-    }
+     public String getSound() {
+         return "Мяу";
+     }
 
-    public List<String> getFood() throws Exception {
-        return predator.eatMeat();
-    }
+     public List<String> getFood() throws Exception {
+         return predator.eatMeat();
+     }
 
-}
+ }

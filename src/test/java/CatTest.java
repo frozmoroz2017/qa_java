@@ -23,7 +23,7 @@ class CatTest {
     }
 
     @Test
-    void testGetFood() throws Exception {
+    void testGetFoodReturnsCorrectFood() throws Exception {
         Cat cat = new Cat(feline);
         List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
 
@@ -32,11 +32,31 @@ class CatTest {
         List<String> actualFood = cat.getFood();
 
         assertEquals(expectedFood, actualFood);
+    }
+
+    @Test
+    void testGetFoodCallsEatMeatOnce() throws Exception {
+        Cat cat = new Cat(feline);
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
+
+        when(feline.eatMeat()).thenReturn(expectedFood);
+
+        cat.getFood();
+
         verify(feline, times(1)).eatMeat();
     }
 
     @Test
     void testGetFoodException() throws Exception {
+        Cat cat = new Cat(feline);
+
+        when(feline.eatMeat()).thenThrow(new Exception("Test exception"));
+
+        assertThrows(Exception.class, cat::getFood);
+    }
+
+    @Test
+    void testGetFoodExceptionVerifyCall() throws Exception {
         Cat cat = new Cat(feline);
 
         when(feline.eatMeat()).thenThrow(new Exception("Test exception"));
